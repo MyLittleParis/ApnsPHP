@@ -120,7 +120,7 @@ function setFunctionType(&$aTokens)
 		// Embedded @param comment (collects params to be used in setFunctionParamType)
 		$sPattern = '~(\p{Z}+@param\p{Z}+)(\$[\p{L}_0-9\|]+)\p{Z}+@type\p{^L}+([\p{L}_0-9\|]+)~';
 		if (preg_match_all($sPattern, $mToken[TOKEN_STRING], $aMatch)) {
-			$aParams = array();
+			$aParams = [];
 			for ($i = 0; $i < count($aMatch[0]); $i++) {
 				$aParams[$aMatch[2][$i]] = $aMatch[3][$i];
 			}

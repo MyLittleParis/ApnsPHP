@@ -59,8 +59,8 @@ class ApnsPHP_Push extends ApnsPHP_Abstract
 		'tls://gateway.sandbox.push.apple.com:2195' // Sandbox environment
 	); /**< @type array Service URLs environments. */
 
-	protected $_aMessageQueue = array(); /**< @type array Message queue. */
-	protected $_aErrors = array(); /**< @type array Error container. */
+	protected $_aMessageQueue = []; /**< @type array Message queue. */
+	protected $_aErrors = []; /**< @type array Error container. */
 
 	/**
 	 * Set the send retry times value.
@@ -106,7 +106,7 @@ class ApnsPHP_Push extends ApnsPHP_Abstract
 					$nMessageID,
 					$message->getExpiry()
 				),
-				'ERRORS' => array()
+				'ERRORS' => []
 			);
 		}
 	}
@@ -131,7 +131,7 @@ class ApnsPHP_Push extends ApnsPHP_Abstract
 			);
 		}
 
-		$this->_aErrors = array();
+		$this->_aErrors = [];
 		$nRun = 1;
 		while (($nMessages = count($this->_aMessageQueue)) > 0) {
 			$this->_log("INFO: Sending messages queue, run #{$nRun}: $nMessages message(s) left in queue.");
@@ -199,10 +199,10 @@ class ApnsPHP_Push extends ApnsPHP_Abstract
 				} else if ($nChangedStreams > 0) {
 					$bError = $this->_updateQueue();
 					if (!$bError) {
-						$this->_aMessageQueue = array();
+						$this->_aMessageQueue = [];
 					}
 				} else {
-					$this->_aMessageQueue = array();
+					$this->_aMessageQueue = [];
 				}
 			}
 
@@ -224,7 +224,7 @@ class ApnsPHP_Push extends ApnsPHP_Abstract
 	{
 		$aRet = $this->_aMessageQueue;
 		if ($bEmpty) {
-			$this->_aMessageQueue = array();
+			$this->_aMessageQueue = [];
 		}
 		return $aRet;
 	}
@@ -241,7 +241,7 @@ class ApnsPHP_Push extends ApnsPHP_Abstract
 	{
 		$aRet = $this->_aErrors;
 		if ($bEmpty) {
-			$this->_aErrors = array();
+			$this->_aErrors = [];
 		}
 		return $aRet;
 	}

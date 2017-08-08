@@ -48,7 +48,7 @@ abstract class ApnsPHP_Abstract
 	const CONNECT_RETRY_INTERVAL = 1000000; /**< @type integer Default connect retry interval in micro seconds. */
 	const SOCKET_SELECT_TIMEOUT = 1000000; /**< @type integer Default socket select timeout in micro seconds. */
 
-	protected $_aServiceURLs = array(); /**< @type array Container for service URLs environments. */
+	protected $_aServiceURLs = []; /**< @type array Container for service URLs environments. */
 
 	protected $_nEnvironment; /**< @type integer Active environment. */
 

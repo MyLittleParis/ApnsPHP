@@ -81,7 +81,7 @@ class ApnsPHP_Message_Safari extends ApnsPHP_Message
 	 */
 	protected function _getPayload()
 	{
-		$aPayload[self::APPLE_RESERVED_NAMESPACE]['alert'] = array();
+		$aPayload[self::APPLE_RESERVED_NAMESPACE]['alert'] = [];
 
 		if (isset($this->_sTitle)) {
 			$aPayload[self::APPLE_RESERVED_NAMESPACE]['alert']['title'] = (string)$this->_sTitle;

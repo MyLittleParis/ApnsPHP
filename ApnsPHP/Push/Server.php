@@ -39,7 +39,7 @@ class ApnsPHP_Push_Server extends ApnsPHP_Push
 	const SHM_ERROR_MESSAGES_QUEUE_KEY = 999; /**< @type integer Message queue identifier for not delivered messages. */
 
 	protected $_nProcesses = 3; /**< @type integer The number of processes to start. */
-	protected $_aPids = array(); /**< @type array Array of process PIDs. */
+	protected $_aPids = []; /**< @type array Array of process PIDs. */
 	protected $_nParentPid; /**< @type integer The parent process id. */
 	protected $_nCurrentProcess; /**< @type integer Cardinal process number (0, 1, 2, ...). */
 	protected $_nRunningProcesses; /**< @type integer The number of running processes. */
@@ -232,7 +232,7 @@ class ApnsPHP_Push_Server extends ApnsPHP_Push
 	 */
 	public function getQueue($bEmpty = true)
 	{
-		$aRet = array();
+		$aRet = [];
 		sem_acquire($this->_hSem);
 		for ($i = 0; $i < $this->_nProcesses; $i++) {
 			$aRet = array_merge($aRet, $this->_getQueue(self::SHM_MESSAGES_QUEUE_KEY_START, $i));
@@ -257,7 +257,7 @@ class ApnsPHP_Push_Server extends ApnsPHP_Push
 		sem_acquire($this->_hSem);
 		$aRet = $this->_getQueue(self::SHM_ERROR_MESSAGES_QUEUE_KEY);
 		if ($bEmpty) {
-			$this->_setQueue(self::SHM_ERROR_MESSAGES_QUEUE_KEY, 0, array());
+			$this->_setQueue(self::SHM_ERROR_MESSAGES_QUEUE_KEY, 0, []);
 		}
 		sem_release($this->_hSem);
 		return $aRet;
@@ -313,7 +313,7 @@ class ApnsPHP_Push_Server extends ApnsPHP_Push
 	protected function _getQueue($nQueueKey, $nProcess = 0)
 	{
 		if (!shm_has_var($this->_hShm, $nQueueKey + $nProcess)) {
-			return array();
+			return [];
 		}
 		return shm_get_var($this->_hShm, $nQueueKey + $nProcess);
 	}
@@ -328,10 +328,10 @@ class ApnsPHP_Push_Server extends ApnsPHP_Push
 	 *         The default value is an empty array, useful to empty the queue.
 	 * @return @type boolean True on success, false otherwise.
 	 */
-	protected function _setQueue($nQueueKey, $nProcess = 0, $aQueue = array())
+	protected function _setQueue($nQueueKey, $nProcess = 0, $aQueue = [])
 	{
 		if (!is_array($aQueue)) {
-			$aQueue = array();
+			$aQueue = [];
 		}
 		return shm_put_var($this->_hShm, $nQueueKey + $nProcess, $aQueue);
 	}

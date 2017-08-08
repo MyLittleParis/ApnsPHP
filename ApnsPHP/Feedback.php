@@ -67,7 +67,7 @@ class ApnsPHP_Feedback extends ApnsPHP_Abstract
 	{
 		$nFeedbackTupleLen = self::TIME_BINARY_SIZE + self::TOKEN_LENGTH_BINARY_SIZE + self::DEVICE_BINARY_SIZE;
 
-		$this->_aFeedback = array();
+		$this->_aFeedback = [];
 		$sBuffer = '';
 		while (!feof($this->_hSocket)) {
 			$this->_log('INFO: Reading...');

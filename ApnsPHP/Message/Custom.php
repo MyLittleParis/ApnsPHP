@@ -187,7 +187,7 @@ class ApnsPHP_Message_Custom extends ApnsPHP_Message
 	{
 		$aPayload = parent::_getPayload();
 
-		$aPayload['aps']['alert'] = array();
+		$aPayload['aps']['alert'] = [];
 
 		if (isset($this->_sText) && !isset($this->_sLocKey)) {
 			$aPayload['aps']['alert']['body'] = (string)$this->_sText;

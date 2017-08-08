@@ -38,7 +38,7 @@ class ApnsPHP_Message
 
 	protected $_bAutoAdjustLongPayload = true; /**< @type boolean If the JSON payload is longer than maximum allowed size, shorts message text. */
 
-	protected $_aDeviceTokens = array(); /**< @type array Recipients device tokens. */
+	protected $_aDeviceTokens = []; /**< @type array Recipients device tokens. */
 
 	protected $_sText; /**< @type string Alert message to display to the user. */
 	protected $_sTitle; /**< @type string Alert title to display to the user. */
@@ -344,7 +344,7 @@ class ApnsPHP_Message
 	public function getCustomPropertyNames()
 	{
 		if (!is_array($this->_aCustomProperties)) {
-			return array();
+			return [];
 		}
 		return array_keys($this->_aCustomProperties);
 	}
@@ -411,12 +411,12 @@ class ApnsPHP_Message
 	 */
 	protected function _getPayload()
 	{
-		$aPayload[self::APPLE_RESERVED_NAMESPACE] = array();
+		$aPayload[self::APPLE_RESERVED_NAMESPACE] = [];
 
 		if (isset($this->_sText)) {
 		    if (isset($this->_sTitle) && strlen($this->_sTitle) > 0) {
 		        // if the title is set, use it 
-		        $aPayload[self::APPLE_RESERVED_NAMESPACE]['alert'] = array();
+		        $aPayload[self::APPLE_RESERVED_NAMESPACE]['alert'] = [];
 		        $aPayload[self::APPLE_RESERVED_NAMESPACE]['alert']['title'] =  (string)$this->_sTitle;
 		        $aPayload[self::APPLE_RESERVED_NAMESPACE]['alert']['body'] = (string)$this->_sText;
 		    } else {
