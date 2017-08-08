@@ -296,12 +296,13 @@ class ApnsPHP_Message
 	 */
 	public function setCustomProperty($sName, $mValue)
 	{
-		if (trim($sName) == self::APPLE_RESERVED_NAMESPACE) {
+        $trimmedName = trim($sName);
+		if (self::APPLE_RESERVED_NAMESPACE === $trimmedName) {
 			throw new ApnsPHP_Message_Exception(
 				"Property name '" . self::APPLE_RESERVED_NAMESPACE . "' can not be used for custom property."
 			);
 		}
-		$this->_aCustomProperties[trim($sName)] = $mValue;
+		$this->_aCustomProperties[$trimmedName] = $mValue;
 	}
 
 	/**
@@ -359,7 +360,7 @@ class ApnsPHP_Message
 	 */
 	public function getCustomProperty($sName)
 	{
-		if (!array_key_exists($sName, $this->_aCustomProperties)) {
+		if (!isset($this->_aCustomeProperties[$sName])) {
 			throw new ApnsPHP_Message_Exception(
 				"No property exists with the specified name '{$sName}'."
 			);
@@ -459,8 +460,9 @@ class ApnsPHP_Message
 	 */
 	public function getPayload()
 	{
-		$sJSON = json_encode($this->_getPayload(), defined('JSON_UNESCAPED_UNICODE') ? JSON_UNESCAPED_UNICODE : 0);
-		if (!defined('JSON_UNESCAPED_UNICODE') && function_exists('mb_convert_encoding')) {
+        $jsonUnescapedUnicode = defined('JSON_UNESCAPED_UNICODE');
+		$sJSON = json_encode($this->_getPayload(), $jsonUnescapedUnicode ? JSON_UNESCAPED_UNICODE : 0);
+		if (!$jsonUnescapedUnicode && function_exists('mb_convert_encoding')) {
 			$sJSON = preg_replace_callback(
 				'~\\\\u([0-9a-f]{4})~i',
 				create_function('$aMatches', 'return mb_convert_encoding(pack("H*", $aMatches[1]), "UTF-8", "UTF-16");'),
