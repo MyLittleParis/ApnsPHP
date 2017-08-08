@@ -347,7 +347,8 @@ class ApnsPHP_Message
 		if (!is_array($this->_aCustomProperties)) {
 			return [];
 		}
-		return array_keys($this->_aCustomProperties);
+		$aKeys = array_keys($this->_aCustomProperties);
+        return $aKeys;
 	}
 
 	/**
